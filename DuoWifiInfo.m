@@ -7,19 +7,34 @@
 //
 
 #import "DuoWifiInfo.h"
-#import <WeexPluginLoader/WeexPluginLoader.h>
+#import <WeexPluginLoader/WeexPluginLoader/WeexPluginLoader.h>
 #import <FGRoute/FGRoute.h>
-WX_PLUGIN_EXPORT_MODULE(wifi, DuoWifiInfo)
+
+WX_PlUGIN_EXPORT_MODULE(wifi, DuoWifiInfo)
 @implementation DuoWifiInfo
 @synthesize weexInstance;
-WX_EXPORT_METHOD(@selector(getGatewayIP))
+WX_EXPORT_METHOD_SYNC(@selector(getGatewayIP))
+WX_EXPORT_METHOD_SYNC(@selector(getSSID))
+WX_EXPORT_METHOD_SYNC(@selector(getBSSID))
+WX_EXPORT_METHOD_SYNC(@selector(getSSIDDATA))
+WX_EXPORT_METHOD_SYNC(@selector(getIPAddress))
 
--(void)getGatewayIP:(WXModuleCallback)callback{
-    [[FGRoute getGatewayIP] :^(NSString *ip) {
-        if(callback) {
-            callback(ip);
-        }
-    }]
+-(NSString *)getGatewayIP{
+    return [FGRoute getGatewayIP];
+}
+
+-(NSString *)getSSID{
+    return [FGRoute getSSID];
+}
+-(NSString *)getBSSID{
+    return [FGRoute getBSSID];
+}
+-(NSString *)getSSIDDATA{
+    return [FGRoute getSSIDDATA];
+}
+
+-(NSString *)getIPAddress{
+    return [FGRoute getIPAddress];
 }
 
 @end
